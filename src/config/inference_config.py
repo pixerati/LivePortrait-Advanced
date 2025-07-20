@@ -7,7 +7,7 @@ config dataclass used for inference
 import os.path as osp
 import cv2
 from numpy import ndarray
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal, Tuple
 from .base_config import PrintableConfig, make_abs_path
 
@@ -46,7 +46,7 @@ class InferenceConfig(PrintableConfig):
     crf: int = 15  # crf for output video
     output_fps: int = 25 # default output fps
 
-    mask_crop: ndarray = cv2.imread(make_abs_path('../utils/resources/mask_template.png'), cv2.IMREAD_COLOR)
+    mask_crop: ndarray = field(default_factory=lambda: cv2.imread(make_abs_path('../utils/resources/mask_template.png'), cv2.IMREAD_COLOR))
     size_gif: int = 256 # default gif size, TO IMPLEMENT
     source_max_dim: int = 1280 # the max dim of height and width of source image
     source_division: int = 2 # make sure the height and width of source image can be divided by this number
